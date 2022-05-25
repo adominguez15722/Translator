@@ -15,7 +15,7 @@
         <div>
             {% for convo in conversations %}
             <div>
-                <h5>{{convo.id}} -- {{convo.name}}</h5>
+                <h5>{{convo.id}} -- <a href="{% url 'conversation' convo.id %}">{{convo.name}}</a></h5>
             </div>
             {% endfor %}
         </div>
