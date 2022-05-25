@@ -18,5 +18,10 @@ def conversation(response, pk):
     # for i in conversations:
     #     if i['id'] == int(pk):
     #         conversation = i
-    # context = {'conversation': conversation}
+    context = {'conversation': conversation}
     return render(response, 'main/conversation.html', context)
+
+def createConversation(request):
+    context = {}
+    return render(request, 'main/conversation_form.html', context)
+
