@@ -18,6 +18,8 @@
         <div>
             {% for convo in conversations %}
             <div>
+                <a href="{% url 'update-conversation' convo.id %}">Edit</a>
+                <a href="{% url 'delete-conversation' convo.id %}">Delete</a>
                 <span>@{{convo.host.username}}</span>
                 <h5>{{convo.id}} -- <a href="{% url 'conversation' convo.id %}">{{convo.name}}</a></h5>
                 <small>{{convo.topic.name}}</small>
