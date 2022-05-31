@@ -1,5 +1,7 @@
+import re
 from django.shortcuts import render, redirect
-from .models import Conversation
+from django.db.models import Q
+from .models import Conversation, Topic
 from .forms import ConversationForm
 # Create your views here.
 
@@ -9,18 +11,27 @@ from .forms import ConversationForm
 #     {'id':3, 'name': 'Sally'},
 # ]
 
-def index(response):
-    conversations = Conversation.objects.all() 
-    context = {'conversations': conversations}
-    return render(response, 'base/home.html', context)
+def index(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
 
-def conversation(response, pk): 
+    conversations = Conversation.objects.filter(
+        Q(topic__name__icontains=q) |
+        Q(name__icontains=q) |
+        Q(description__icontains=q)
+        )
+
+    topics = Topic.objects.all() 
+    
+    context = {'conversations': conversations, 'topics': topics}
+    return render(request, 'base/home.html', context)
+
+def conversation(request, pk): 
     conversation = Conversation.objects.get(id=pk)
     # for i in conversations:
     #     if i['id'] == int(pk):
     #         conversation = i
     context = {'conversation': conversation}
-    return render(response, 'base/conversation.html', context)
+    return render(request, 'base/conversation.html', context)
 
 def createConversation(request):
     form = ConversationForm()
