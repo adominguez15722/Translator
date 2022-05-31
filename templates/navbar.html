@@ -5,4 +5,11 @@
 <form action="{% url 'index' %}" method="GET">
     <input type="text" name="q" placeholder="Search conversations." />
 </form>
+
+{% if request.user.is_authenticated %}
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+{% endif %}
+
 <hr>

@@ -28,6 +28,9 @@
             <hr>
 
             <div>
+                <a href="{% url 'index' %}">All</a>
+            </div>
+            <div>
                 <a href="{% url 'index' %}">{{topic.name}}</a>
             </div>
 
@@ -41,6 +44,7 @@
         
         
         <div>
+            <h5>{{conversation_count}} conversations to join</h5>
             <a href="{% url 'create-conversation' %}">Create Conversation</a>
             
             {% for convo in conversations %}
